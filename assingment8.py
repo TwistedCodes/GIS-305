@@ -29,12 +29,12 @@ def main():
     arcpy.env.overwriteOutput = True
 
     # Buffer cities
-    input_gdb = r"C:\Users\Owner\Documents\305 Python\Lab 1\Original Data\Admin\Admin\AdminData.gdb\U.S. Cities"
+    input_gdb = r"C:\Users\Owner\Documents\305 Python\Lab 1\Original Data\Admin\Admin\AdminData.gdb"
 
     # Change me this next line below to use GetParamters!!
     dist = arcpy.GetParameterAsText(0)
 
-    buf_cities = buffer_layer(input_gdb, "U.S. Cities", dist)
+    buf_cities = buffer_layer(input_gdb, "Cities", dist)
 
     # Change me this next line below to use GetParamters!!
     print("Buffer layer " + buf_cities + " created.")
@@ -42,7 +42,7 @@ def main():
     # Buffer rivers
     # Change me this next line below to use GetParamters!!
     dist = arcpy.GetParameterAsText(1)
-    buf_rivers = buffer_layer(input_gdb, "U.S. Rivers", dist)
+    buf_rivers = buffer_layer(input_gdb, "Rivers", dist)
     print("Buffer layer " + buf_rivers + " created.")
 
     # Define lyr_list variable
