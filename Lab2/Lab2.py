@@ -1,88 +1,22 @@
 import requests
 import yaml
 import arcpy
-from SpatialETL import SpatialETL
+from SpatialEtl import SpatialEtl
+from GSheetsEtl import GSheetsEtl
 
 
 def setup():
     with open('config/wnvoutbreak.yaml') as f:
         config_dict = yaml.load(f, Loader=yaml.FullLoader)
+
+    arcpy.env.workspace = r"C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\WestNileOutbreak.gdb"
+    arcpy.env.overwriteOutput = True
     return config_dict
-
-
-class GSheetsEtl(SpatialETL):
-    def __init__(self, remote, local_dir, data_format, destination):
-        super().__init__(remote, local_dir, data_format, destination)
-
-    def extract(self):
-        print("Extracting addresses from google form spread sheet")
-
-        r = requests.get(
-            "https://docs.google.com/spreadsheets/d/1edDbGl8MwKlh101Xl4-_0vEON8YuPnSqRA4_GVn8IAs/edit?usp=sharing")
-        r.encoding = "utf-8"
-        data = r.text
-        with open("C:\Users\Owner\Documents\305 Python\Lab2\Contact Information (Responses) - Form Responses 1.csv",
-                  "w") as output_file:
-            output_file.write(data)
-
-    def process(self):
-        self.extract()
-        super().transform()
-        super().load()
-
-    def transform(self):
-        print(f"Transforming data from GSheet")
-        r = requests.get(
-            "https://docs.google.com/spreadsheets/d/1edDbGl8MwKlh101Xl4-_0vEON8YuPnSqRA4_GVn8IAs/edit?usp=sharing")
-        r.encoding = "utf-8"
-        data = r.text
-        with open("C:\Users\Owner\Documents\305 Python\Lab2\Contact Information (Responses) - Form Responses 1.csv",
-                  "w") as output_file:
-            output_file.write(data)
-
-    def process(self):
-        self.extract()
-        super().transform()
-        super().load()
-
-    def load(self):
-        print(f"Loading data into arcGIS")
-        # Description: Creates a point feature class from inpit table
-
-        # Set enviroment settings
-        arcpy.env.workspece = r"C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\WestNileOutbreak.gdb\\"
-        arcpy.env.overwriteOutput = True
-
-        # Set local variables
-        in_table = r"C:\Users\Owner\Documents\305 Python\Lab2\Contact Information (Responses) - Form Responses 1.csv"
-        out_feature_class = "avoid points"
-        x_coords = "X"
-        y_coords = "Y"
-
-        # Make the XY event layer...
-        arcpy.management.XYTableToPoints(in_table, out_feature_class, x_coords, y_coords)
-
-        # print the total rows
-        print(arcpy.GetCount_management(out_feature_class))
-
-    def process(self):
-        self.extract()
-        super().transform()
-        super().load()
-
 
 def etl():
     print("etling....")
-    etl_instance = GSheetsEtl(
-        "https://docs.google.com/spreadsheets/d/1edDbGl8MwKlh101Xl4-_0vEON8YuPnSqRA4_GVn8IAs/edit?usp=sharing",
-        "C:/Users", "GSheets", "C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\WestNileOutbreak.gdb")
-    etl.instance.process()
-
-
-def setup():
-    arcpy.env.workspace = r"C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\WestNileOutbreak.gdb"
-    arcpy.env.overwriteOutput = True
-
+    etl_instance = GSheetsEtl(config_dict)
+    etl_instance.process()
 
 def buffer(layer_name, buf_dist):
     # Buffer the incoming layer by the buffer distance
@@ -109,16 +43,20 @@ def spatial_join():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    setup()
-    # mosquito larval sites
-    # wetlands
-    # lakes and reservoirs
-    # open space (OSMP)
-    buffer_layer_list = ["Mosquito_Larval_Sitess", "LakesandRes_Boulder", "OSMP_properties", "Wetlands_Boulder"]
-    for layer in buffer_layer_list:
-        print("Looping")
-        buffer(layer, "0.1 mile")
-    int_lyrs = ["LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf", "Wetlands_Boulder_buf"]
-    intersect("Intersect", int_lyrs)
+    global config_dict
+    config_dict = setup()
+    print(config_dict)
+    etl()
 
-    spatial_join()
+    # # mosquito larval sites
+    # # wetlands
+    # # lakes and reservoirs
+    # # open space (OSMP)
+    # buffer_layer_list = ["Mosquito_Larval_Sitess", "LakesandRes_Boulder", "OSMP_properties", "Wetlands_Boulder"]
+    # for layer in buffer_layer_list:
+    #     print("Looping")
+    #     buffer(layer, "0.1 mile")
+    # int_lyrs = ["LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf", "Wetlands_Boulder_buf"]
+    # intersect("Intersect", int_lyrs)
+    #
+    # spatial_join()
