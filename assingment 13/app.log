@@ -1,0 +1,4 @@
+root - DEBUG - This is a debug statement
+root - INFO - This will get logged to a file
+root - WARNING - This is a Warning
+root - ERROR - This is an error!
