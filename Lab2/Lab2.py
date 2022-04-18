@@ -9,7 +9,7 @@ def setup():
     with open('config/wnvoutbreak.yaml') as f:
         config_dict = yaml.load(f, Loader=yaml.FullLoader)
 
-    arcpy.env.workspace = f"{config_dict('proj_dir')}WestNileOutbreak.gdb"
+    arcpy.env.workspace = f"{config_dict['proj_dir']}WestNileOutbreak.gdb"
     arcpy.env.overwriteOutput = True
     return config_dict
 
