@@ -1,7 +1,5 @@
-import requests
 import yaml
 import arcpy
-from SpatialEtl import SpatialEtl
 from GSheetsEtl import GSheetsEtl
 
 
