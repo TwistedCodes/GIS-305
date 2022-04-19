@@ -45,7 +45,7 @@ def load():
     # Description: Creates a point feature class from input table
 
     # Set environment settings
-    arcpy.env.workspace = r"C:\Users\Owner\Documents\305 Python\Lab 1\Original Data\Admin\Admin\AdminData.gdb\\"
+    arcpy.env.workspace = r"C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\WestNileOutbreak.gdb\\"
     arcpy.env.overwriteOutput = True
 
     # Set the local variables

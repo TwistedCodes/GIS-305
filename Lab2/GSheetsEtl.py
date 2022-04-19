@@ -32,7 +32,7 @@ class GSheetsEtl(SpatialEtl):
             for row in csv_dict:
                 address = row["Street Address"] + " Boulder CO"
                 print(address)
-                geocode_url = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=" + address + "&benchmark=2020&format=json "
+                geocode_url = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=" + address + "&benchmark=2020&format=json"
                 print(geocode_url)
                 r = requests.get(geocode_url)
 
@@ -47,7 +47,7 @@ class GSheetsEtl(SpatialEtl):
         # Description: Creates a point feature class from input table
 
         # Set environment settings
-        arcpy.env.workspace = r"C:\Users\Owner\Documents\305 Python\Lab 1\Original Data\Admin\Admin\AdminData.gdb\\"
+        arcpy.env.workspace = r"C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\WestNileOutbreak.gdb\\"
         arcpy.env.overwriteOutput = True
 
         # Set the local variables
