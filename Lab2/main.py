@@ -1,7 +1,7 @@
 import arcpy
 import requests
 import csv
-import json
+
 
 
 def extract():

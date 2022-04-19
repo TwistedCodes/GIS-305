@@ -1,4 +1,4 @@
-remote_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDjitOlmILea7koCORJkq6QrUcwBJM7K3vy4guXB0mU_nWR6wsPn136bpH6ykoUxyYMW7wTwkzE37l/pub?output=csv'
+remote_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRt1Ywa2tOQAmbzF8S8DeI7hGz2rHkiygmZl-FugiqRtN_umlvWNmeHYkCxD_y7erOYumgvgJsWUpje/pub?output=csv'
 proj_dir: 'C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\'
 data_format: 'GSheet'
 geocode_prefix_url: 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address='
