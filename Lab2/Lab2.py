@@ -41,8 +41,8 @@ def spatial_join():
     arcpy.analysis.SpatialJoin("BoulderAddresses", "Intersect", "Areas_of_concern")
 
 
-# def symmetrical difference():
-# arcpy.analysis.SymDiff(Avoid_Points, update_features, Avoid_Area, {ALL}, {0.15 mile})
+# def erase():
+# arcpy.analysis.Erase(Avoid_Points, erase_features, Avoid_Area)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -56,12 +56,12 @@ if __name__ == '__main__':
     # # lakes and reservoirs
     # # open space (OSMP)
     # Avoid_Points
-    buffer_layer_list = ["Mosquito_Larval_Sitess", "LakesandRes_Boulder", "OSMP_properties", "Wetlands_Boulder"]
+    buffer_layer_list = ["Mosquito_Larval_Sitess", "LakesandRes_Boulder", "OSMP_properties", "Wetlands_Boulder", "Avoid_Area"]
     for layer in buffer_layer_list:
         print("Looping")
-        buffer(layer, "0.1 mile")
+        buffer(layer, "0.15 mile")
         int_lyrs = ["LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
-                    "Wetlands_Boulder_buf"]
+                    "Wetlands_Boulder_buf", "Avoid_Area_buf"]
     intersect("Intersect", int_lyrs)
 
     spatial_join()
