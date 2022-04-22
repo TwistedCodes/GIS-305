@@ -16,7 +16,8 @@ class GSheetsEtl(SpatialEtl):
         # "https://docs.google.com/spreadsheets/d/e/2PACX-1vRt1Ywa2tOQAmbzF8S8DeI7hGz2rHkiygmZl-FugiqRtN_umlvWNmeHYkCxD_y7erOYumgvgJsWUpje/pub?output=csv")
 
         r = requests.get(
-            "https://docs.google.com/spreadsheets/d/e/2PACX-1vRt1Ywa2tOQAmbzF8S8DeI7hGz2rHkiygmZl-FugiqRtN_umlvWNmeHYkCxD_y7erOYumgvgJsWUpje/pub?output=csv")
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vRt1Ywa2tOQAmbzF8S8DeI7hGz2rHkiygmZl"
+            "-FugiqRtN_umlvWNmeHYkCxD_y7erOYumgvgJsWUpje/pub?output=csv")
         r.encoding = "utf-8"
         data = r.text
         with open(r"C:\Users\Owner\Downloads\addresses.csv", "w") as output_file:
@@ -32,7 +33,7 @@ class GSheetsEtl(SpatialEtl):
             for row in csv_dict:
                 address = row["Street Address"] + " Boulder CO"
                 print(address)
-                geocode_url = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=" + address + "&benchmark=2020&format=json"
+                geocode_url = "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=" + address + "&benchmark=2020&format=json "
                 print(geocode_url)
                 r = requests.get(geocode_url)
 
