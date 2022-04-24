@@ -1,0 +1,26 @@
+import logging
+
+logging.basicConfig(filename=f"{config_dict('proj_dir')}wnv.log,
+                    filemode="w",
+		    level=logging.DEBUG)
+
+logging.info("Starting West Nile Virus Script")
+
+logging.debug("Starting (function)")
+
+logging.debug("Ending (function)")
+
+*Note: create layout as per lab instructions
+
+Map layout:
+
+def exportMap()
+aprx=arcpy.mp.ArcGISProject(f{config_dict.get('proj_dir')}WestNileOutbreak.aprx) ----> check name that I use
+lyt =aprx.listLayouts()[0]
+for el in lyt.listElements():
+	print(el.name)
+	if "Title" in el.name"
+		el.text = el.text + "custom message"
+
+
+
