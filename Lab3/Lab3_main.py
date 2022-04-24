@@ -53,12 +53,12 @@ def erase():
 
 
 def exportMap():
-    aprx = arcpy.mp.ArcGISProject(f{config_dict.get('proj_dir')}'WestNileOutbreak.aprx'))
+    aprx = arcpy.mp.ArcGISProject(f({config_dict.get('proj_dir')}'WestNileOutbreak.aprx'))
     lyt = aprx.listLayouts()[0]
     for el in lyt.listElements():
-	    print(el.name)
-	        if "Title" in el.name
-		        el.text = el.text + "custom message"
+	print(el.name)
+	if "Title" in el.name:
+	    el.text = el.text + "custom message"
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     global config_dict
