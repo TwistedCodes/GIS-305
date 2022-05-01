@@ -44,7 +44,7 @@ def set_spatial_reference(aprx):
         state_plane_noco = arcpy.SpatialReference(3743)
         map_doc.SpatialReference = state_plane_noco
     except Exception as e:
-        print(f"Error in set_spatial_reference {e}")
+        return f"Error in set_spatial_reference {e}"
 
 def etl():
     """
@@ -74,8 +74,8 @@ def buffer(layer_name, buf_dist):
     logging.debug(f'My Buffering {layer_name} to generate a new {output_buffer_layer_name}')
 
     arcpy.analysis.Buffer(layer_name, output_buffer_layer_name, buf_dist, "FULL", "ROUND", "ALL")
-    except Exception as B:
-    print(f"Buffer not run {B}")
+    except BufferError as B:
+    return f"Buffer not run {B}"
 
 def intersect(layer_name, int_lyrs):
    """
@@ -121,6 +121,18 @@ def erase():
     print(f"Erase not run {E}")
 
 
+def  spatial_join():
+    """
+    Joins Boulder Addresses and final analysis layer
+    :return:
+    """
+    try:
+        logging.debug("Starting spatial join")
+    arcpy.analysis.SpatialJoin("BoulderAddresses", "final_analysis", "final_layer")
+    logging.debug("My second spatial join Method")
+    except Exception as Sp:
+    print(f"Spatial join not run {Sp}")
+
 def exportMap():
     """
     Exports the map to a PDF
@@ -160,8 +172,8 @@ if __name__ == '__main__':
     intersect("Intersect", int_lyrs)
 
     spatial_join()
+    spatial_join()
 
-    # spatial_join between 'Boulder Addressess' and 'final_analysis'
 
     # Rendering
     # aprx =arcpy.mp.ArcGISProject("CURRENT")
