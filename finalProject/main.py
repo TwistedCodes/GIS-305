@@ -1,7 +1,10 @@
 import arcpy
 import requests
 import csv
-
+"""
+Base code for the project. Provided by the professor.
+Work environment set by individual throughout the project
+"""
 
 def extract():
     print("Extracting addresses from google form spreadsheet")

@@ -1,4 +1,7 @@
-
+"""
+Defines what will be put through the process of extract, transform
+and load as well as telling it where to get the information from
+"""
 class SpatialEtl:
 
     def __init__(self, config_dict):
