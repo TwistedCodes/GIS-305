@@ -3,4 +3,4 @@ proj_dir: 'C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\'
 data_format: 'GSheet'
 geocode_prefix_url: 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address='
 geocode_suffix_url: '&benchmark=2020&format=json'
-# utm_zone_13_reference: https://www.spatialreerence.org/ref/esri/3743/ UTM13
+utm_zone_13_reference: https://www.spatialreerence.org/ref/esri/3743/ UTM13

@@ -6,15 +6,6 @@ import logging
 logging.info('Starting West Nile Virus Script')
 
 
-# srs = arcpy.listSpatialRefernces("*UTM*13N")
-#
-# for sr_string in srs:
-# 	sr_object = arcpy.SpatialReference(sr_string)
-# 	print("{0.centralMeridian} {0.name} {0.PCSCode}".format(sr_object))
-# aprx = arcpy.mp.ArcGISProject("CURRENT")
-# utm_zone_13 = acrpy.SpatialReference(3743)
-# map_doc.spatialReference = utm_zone_13
-
 def setup():
     """
     Setting up the workspace and dictionaries from which data will be pulled
@@ -52,12 +43,12 @@ def etl():
     load process set up in previous code blocks
     :return:
     """
+    print("etling....")
     try:
-        print("etling....")
-    etl_instance = GSheetsEtl(config_dict)
-    etl_instance.process()
+        etl_instance = GSheetsEtl(config_dict)
+        etl_instance.process()
     except Exception as e:
-    print(f"etl failure {e}")
+        print(f"etl failure {e}")
 
 def buffer(layer_name, buf_dist):
     """
@@ -69,13 +60,13 @@ def buffer(layer_name, buf_dist):
     # Buffer the incoming layer by the buffer distance
     try:
         logging.debug("Starting Buffering")
-    output_buffer_layer_name = f"{layer_name}_buf"
+        output_buffer_layer_name = f"{layer_name}_buf"
 
-    logging.debug(f'My Buffering {layer_name} to generate a new {output_buffer_layer_name}')
+        logging.debug(f'My Buffering {layer_name} to generate a new {output_buffer_layer_name}')
 
-    arcpy.analysis.Buffer(layer_name, output_buffer_layer_name, buf_dist, "FULL", "ROUND", "ALL")
+        arcpy.analysis.Buffer(layer_name, output_buffer_layer_name, buf_dist, "FULL", "ROUND", "ALL")
     except BufferError as B:
-    return f"Buffer not run {B}"
+        return f"Buffer not run {B}"
 
 def intersect(layer_name, int_lyrs):
    """
@@ -84,15 +75,14 @@ def intersect(layer_name, int_lyrs):
    :param int_lyrs:
    :return:
    """
-# Use a breakpoint in the code line below to debug your script.
-try:
-    logging.debug("Starting Intersect")
+   try:
+        logging.debug("Starting Intersect")
 
-output_intersect_name = "Intersect"
-arcpy.analysis.Intersect(int_lyrs, output_intersect_name)
-logging.debug("End Intersect Fuction")
-except Exception as I:
-print(f"Intersect not run {I}")
+        output_intersect_name = "Intersect"
+        arcpy.analysis.Intersect(int_lyrs, output_intersect_name)
+        logging.debug("End Intersect Fuction")
+   except Exception as I:
+        print(f"Intersect not run {I}")
 
 def spatial_join():
     """
@@ -101,11 +91,11 @@ def spatial_join():
     """
     try:
         logging.debug("Starting spatial join")
-    # Use a breakpoint in the code line below to debug your script.
-    arcpy.analysis.SpatialJoin("BoulderAddresses", "Intersect", "Areas_of_concern")
-    logging.debug("My spatial join Method")
+        # Use a breakpoint in the code line below to debug your script.
+        arcpy.analysis.SpatialJoin("BoulderAddresses", "Intersect", "Areas_of_concern")
+        logging.debug("My spatial join Method")
     except Exception as S:
-    print(f"Spatial join not run {S}")
+        print(f"Spatial join not run {S}")
 
 def erase():
     """
@@ -115,10 +105,10 @@ def erase():
     """
     try:
         logging.debug("Begin erase")
-    arcpy.analysis.Erase("Intersect", "Avoid_Area", "final_analysis")
-    logging.debug("Erase Complete")
+        arcpy.analysis.Erase("Intersect", "Avoid_Area", "final_analysis")
+        logging.debug("Erase Complete")
     except Exception as E:
-    print(f"Erase not run {E}")
+        print(f"Erase not run {E}")
 
 
 def  spatial_join():
@@ -128,10 +118,25 @@ def  spatial_join():
     """
     try:
         logging.debug("Starting spatial join")
-    arcpy.analysis.SpatialJoin("BoulderAddresses", "final_analysis", "final_layer")
-    logging.debug("My second spatial join Method")
+        arcpy.analysis.SpatialJoin("BoulderAddresses", "final_analysis", "final_layer")
+        logging.debug("My second spatial join Method")
     except Exception as Sp:
-    print(f"Spatial join not run {Sp}")
+        print(f"Spatial join not run {Sp}")
+
+def DefinitionQuery():
+ lyr = map_doc.listLayers ("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
+                            "Wetlands_Boulder_buf")[0]
+ lyr.definitionQuery = "'City' = 'Boulder'"
+
+def Rendering():
+     aprx =arcpy.mp.ArcGISProject("CURRENT")
+     lyr = map_doc.listLayers()[0]
+     #Get the existing symbol
+     sym = lyr.symbology
+     sym.renderer.symbol.color = {'RGB': [255, 0, 0, 100]}
+     sym.renderer.symbol.outlineColor = {'RGB' :[0, 0, 0, 100]}
+     lyr.symbology = sym ("final_analysis")
+     lyr.transparency = 50
 
 def exportMap():
     """
@@ -139,14 +144,14 @@ def exportMap():
     :return:
     """
     try:
-        aprx = arcpy.mp.ArcGISProject = f({config_dict.get('proj_dir')}, 'WestNileOutbreak.aprx'),
-    lyt = aprx.listLayouts()[0]
-    for el in lyt.listElements():
-        print(el.name)
-    if "Title" in el.name:
-        el.text = el.text + "Map Export Complete"
+        aprx = arcpy.mp.ArcGISProject = f({config_dict.get('proj_dir')}, 'WestNileOutbreak.aprx')
+        lyt = aprx.listLayouts()[0]
+        for el in lyt.listElements():
+            print(el.name)
+            if "Title" in el.name:
+                el.text = el.text + "Map Export Complete"
     except Exception as M:
-    print(f"Map not exported {M}")
+        print(f"Map not exported {M}")
 
 
 # Press the green button in the gutter to run the script.
@@ -175,18 +180,3 @@ if __name__ == '__main__':
     spatial_join()
 
 
-    # Rendering
-    # aprx =arcpy.mp.ArcGISProject("CURRENT")
-    # lyr = map_doc.listLayers("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
-    #                     "Wetlands_Boulder_buf")[0]
-    # Get the existing symbol
-    # sym.lry.symbology
-    # sym.renderer.symbol.color = {'RGB': [255, 0, 0, 100]}
-    # sym.renderer.symbol.outlineColor = {'RGB' :[0, 0, 0, 100]}
-    # lyr.symbology = sym
-    # lyr.transparency = 50
-
-    # Definition Query
-    # lyr = map_doc.listLayers ("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
-    #                     "Wetlands_Boulder_buf")[0]
-    # lyr.definitionQuery = ""City" = 'Boulder'"
