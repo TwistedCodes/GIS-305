@@ -111,7 +111,7 @@ def erase():
         print(f"Erase not run {E}")
 
 
-def  spatial_join():
+def spatial_join():
     """
     Joins Boulder Addresses and final analysis layer
     :return:
@@ -124,11 +124,13 @@ def  spatial_join():
         print(f"Spatial join not run {Sp}")
 
 def DefinitionQuery():
+ map_doc= arcpy.mapping.MapDocument("CURRENT")
  lyr = map_doc.listLayers ("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
                             "Wetlands_Boulder_buf")[0]
  lyr.definitionQuery = "'City' = 'Boulder'"
 
 def Rendering():
+     map_doc = arcpy.mapping.MapDocument("CURRENT")
      aprx =arcpy.mp.ArcGISProject("CURRENT")
      lyr = map_doc.listLayers()[0]
      #Get the existing symbol
