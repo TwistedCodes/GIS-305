@@ -20,8 +20,6 @@ def setup():
     return config_dict
 
 
-
-
 def set_spatial_reference(aprx):
     """
     Set the spatial refernce of the map document
@@ -37,6 +35,7 @@ def set_spatial_reference(aprx):
     except Exception as e:
         return f"Error in set_spatial_reference {e}"
 
+
 def etl():
     """
     performs and extract, transform and
@@ -49,6 +48,7 @@ def etl():
         etl_instance.process()
     except Exception as e:
         print(f"etl failure {e}")
+
 
 def buffer(layer_name, buf_dist):
     """
@@ -68,21 +68,23 @@ def buffer(layer_name, buf_dist):
     except BufferError as B:
         return f"Buffer not run {B}"
 
+
 def intersect(layer_name, int_lyrs):
-   """
+    """
    creates an intersect layer
    :param layer_name:
    :param int_lyrs:
    :return:
    """
-   try:
+    try:
         logging.debug("Starting Intersect")
 
         output_intersect_name = "Intersect"
         arcpy.analysis.Intersect(int_lyrs, output_intersect_name)
         logging.debug("End Intersect Fuction")
-   except Exception as I:
+    except Exception as I:
         print(f"Intersect not run {I}")
+
 
 def spatial_join():
     """
@@ -96,6 +98,7 @@ def spatial_join():
         logging.debug("My spatial join Method")
     except Exception as S:
         print(f"Spatial join not run {S}")
+
 
 def erase():
     """
@@ -123,22 +126,25 @@ def spatial_join():
     except Exception as Sp:
         print(f"Spatial join not run {Sp}")
 
+
 def DefinitionQuery():
- map_doc= arcpy.mapping.MapDocument("CURRENT")
- lyr = map_doc.listLayers ("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
-                            "Wetlands_Boulder_buf")[0]
- lyr.definitionQuery = "'City' = 'Boulder'"
+    map_doc = arcpy.mapping.MapDocument("CURRENT")
+    lyr = map_doc.listLayers("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
+                             "Wetlands_Boulder_buf")[0]
+    lyr.definitionQuery = "'City' = 'Boulder'"
+
 
 def Rendering():
-     map_doc = arcpy.mapping.MapDocument("CURRENT")
-     aprx =arcpy.mp.ArcGISProject("CURRENT")
-     lyr = map_doc.listLayers()[0]
-     #Get the existing symbol
-     sym = lyr.symbology
-     sym.renderer.symbol.color = {'RGB': [255, 0, 0, 100]}
-     sym.renderer.symbol.outlineColor = {'RGB' :[0, 0, 0, 100]}
-     lyr.symbology = sym ("final_analysis")
-     lyr.transparency = 50
+    map_doc = arcpy.mapping.MapDocument("CURRENT")
+    aprx = arcpy.mp.ArcGISProject("CURRENT")
+    lyr = map_doc.listLayers()[0]
+    # Get the existing symbol
+    sym = lyr.symbology
+    sym.renderer.symbol.color = {'RGB': [255, 0, 0, 100]}
+    sym.renderer.symbol.outlineColor = {'RGB': [0, 0, 0, 100]}
+    lyr.symbology = sym("final_analysis")
+    lyr.transparency = 50
+
 
 def exportMap():
     """
@@ -180,5 +186,3 @@ if __name__ == '__main__':
 
     spatial_join()
     spatial_join()
-
-
