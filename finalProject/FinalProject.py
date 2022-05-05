@@ -140,8 +140,8 @@ def Rendering():
     lyr = map_doc.listLayers()[0]
     # Get the existing symbol
     sym = lyr.symbology
-    sym.renderer.symbol.color = {'RGB': [255, 0, 0, 100]}
-    sym.renderer.symbol.outlineColor = {'RGB': [0, 0, 0, 100]}
+    sym.renderer.symbol.color = {'RGB': [168, 0, 36, 50]}
+    sym.renderer.symbol.outlineColor = {'RGB': [0, 0, 0, 50]}
     lyr.symbology = sym("final_analysis")
     lyr.transparency = 50
 
@@ -152,7 +152,7 @@ def exportMap():
     :return:
     """
     try:
-        aprx = arcpy.mp.ArcGISProject = f({config_dict.get('proj_dir')}, 'WestNileOutbreak.aprx')
+        aprx = arcpy.mp.ArcGISProject = f"({config_dict['proj_dir']} 'WestNileOutbreak.aprx')"
         lyt = aprx.listLayouts()[0]
         for el in lyt.listElements():
             print(el.name)
