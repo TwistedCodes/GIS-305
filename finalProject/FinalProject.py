@@ -22,12 +22,12 @@ def setup():
 
 def set_spatial_reference(aprx):
     """
-    Set the spatial refernce of the map document
+    Set the spatial reference of the map document
     :param aprx:
     :return:
     """
     try:
-        # Set spatial refernce
+        # Set spatial reference
         map_doc = aprx.listMaps()[0]
         # https://www.spatialreerence.org/ref/esri/3743/ UTM13
         state_plane_noco = arcpy.SpatialReference(3743)

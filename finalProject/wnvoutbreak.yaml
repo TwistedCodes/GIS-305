@@ -1,6 +1,6 @@
 remote_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRt1Ywa2tOQAmbzF8S8DeI7hGz2rHkiygmZl-FugiqRtN_umlvWNmeHYkCxD_y7erOYumgvgJsWUpje/pub?output=csv'
-proj_dir: 'C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\'
+proj_dir: 'C:\Users\Owner\Documents\305 Python\Lab 1A\WestNileOutbreak\WestNileOutbreak.gdb\\'
 data_format: 'GSheet'
 geocode_prefix_url: 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address='
 geocode_suffix_url: '&benchmark=2020&format=json'
-utm_zone_13_reference: https://www.spatialreerence.org/ref/esri/3743/ UTM13
+utm_zone_13_reference: 'https://www.spatialreerence.org/ref/esri/3743/ UTM13'
