@@ -81,14 +81,14 @@ def intersect(layer_name, int_lyrs):
 
         output_intersect_name = "Intersect"
         arcpy.analysis.Intersect(int_lyrs, output_intersect_name)
-        logging.debug("End Intersect Fuction")
+        logging.debug("End Intersect Function")
     except Exception as I:
         print(f"Intersect not run {I}")
 
 
 def spatial_join():
     """
-    Joins data from Boulder Addresses, Intersect layer and areas of highest concern
+    Joins data from Boulder Addresses, Intersect layer and areas of the highest concern
     :return:
     """
     try:
@@ -108,7 +108,7 @@ def erase():
     """
     try:
         logging.debug("Begin erase")
-        arcpy.analysis.Erase("Intersect", "Avoid_Area", "final_analysis")
+        arcpy.analysis.Erase("avoid_points", "Intersect", "final_analysis")
         logging.debug("Erase Complete")
     except Exception as E:
         print(f"Erase not run {E}")
