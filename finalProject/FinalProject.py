@@ -168,7 +168,7 @@ if __name__ == '__main__':
     config_dict = setup()
     print(config_dict)
     etl()
-    logging.basicConfig(filename=f"{config_dict('proj_dir')}wnv.log,",
+    logging.basicConfig(filename=f"{config_dict['proj_dir']}wnv.log,",
                         filemode="w",
                         level=logging.DEBUG)
     # # mosquito larval sites
