@@ -12,7 +12,7 @@ def setup():
     as well as external resources
     :return:
     """
-    with open('config/wnvoutbreak.yaml') as f:
+    with open('wnvoutbreak.yaml') as f:
         config_dict = yaml.load(f, Loader=yaml.FullLoader)
 
     arcpy.env.workspace = f"{config_dict['proj_dir']}WestNileOutbreak.gdb"
