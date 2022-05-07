@@ -128,16 +128,16 @@ def spatial_join():
 
 
 def DefinitionQuery():
-    map_doc = arcpy.mapping.MapDocument("CURRENT")
-    lyr = map_doc.listLayers("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
+    mxd = arcpy.mapping.MapDocument("CURRENT")
+    lyr = mxd.listLayers("LakesandRes_Boulder_buf", "Mosquito_Larval_Sitess_buf", "OSMP_properties_buf",
                              "Wetlands_Boulder_buf")[0]
     lyr.definitionQuery = "'City' = 'Boulder'"
 
 
 def Rendering():
-    map_doc = arcpy.mapping.MapDocument("CURRENT")
+    mxd = arcpy.mapping.MapDocument("CURRENT")
     aprx = arcpy.mp.ArcGISProject("CURRENT")
-    lyr = map_doc.listLayers()[0]
+    lyr = mxd.listLayers()[0]
     # Get the existing symbol
     sym = lyr.symbology
     sym.renderer.symbol.color = {'RGB': [168, 0, 36, 50]}
