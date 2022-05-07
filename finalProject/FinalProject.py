@@ -185,4 +185,8 @@ if __name__ == '__main__':
     intersect("Intersect", int_lyrs)
 
     spatial_join()
+    erase()
     spatial_join()
+    DefinitionQuery()
+    Rendering()
+    exportMap()
